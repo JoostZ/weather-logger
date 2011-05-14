@@ -1,0 +1,5 @@
+C:\Users\Joost\Documents\Development\MyProjects\WeatherLogger\UsbLibrary\bin\Release\UsbLibrary.dll
+C:\Users\Joost\Documents\Development\MyProjects\WeatherLogger\UsbLibrary\bin\Release\UsbLibrary.pdb
+C:\Users\Joost\Documents\Development\MyProjects\WeatherLogger\UsbLibrary\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Joost\Documents\Development\MyProjects\WeatherLogger\UsbLibrary\obj\Release\UsbLibrary.dll
+C:\Users\Joost\Documents\Development\MyProjects\WeatherLogger\UsbLibrary\obj\Release\UsbLibrary.pdb
