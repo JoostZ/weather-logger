@@ -14,4 +14,5 @@ In the source for our project I have split the USB interface in two separate lib
 == UsbLibrary ==
 The following picture shows the classes in `UsbLibrary`
 <wiki:gadget url="http://creately.com/player/gadget/createlyplayer.xml" height="500" width="500" border="0" up_did="gnybuyyb1" up_dlogo="true" up_dtitle="Embedding in Google Code" up_bgcolor="#EEEEEE" />
+
 At the heart of the library is the (abstract) class `HIDDevice`. This class implements all of the low-level interfacing to a HID USB device.
