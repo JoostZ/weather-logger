@@ -1,0 +1,11 @@
+#summary USB HID Library
+
+= Introduction =
+
+The WS4000 uses the HID USB interface for communication with the PC. This page describes the implementation of the USB driver used in the wesather-logger project.
+
+The implementation is heavily based on this [http://www.codeproject.com/KB/cs/USB_HID.aspx codeproject article]. In fact all the low-level code is taken directly from that implementation. The high-level interface is still based on that article but slightly generalized and extended with the WS4000 specific interface.
+
+In the source for our project I have split the USB interface in two separate libraries.
+  * The `UsbLibrary` is basically the [http://www.codeproject.com/KB/cs/USB_HID.aspx codeproject] implementation.
+  * The `WeatherLoggerLib` contains the WS4000 specific extensions to `UsbLibrary`.
