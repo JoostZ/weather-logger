@@ -25,13 +25,7 @@ namespace WeatherLoggerLib
                 return 0x8201;
             }
         }
-        public override Type DeviceType
-        {
-            get
-            {
-                return typeof(WS4000Device);
-            }
-        }
+
         public WS4000HidPort()
         {
             InitializeComponent();

@@ -18,7 +18,6 @@ namespace UsbLibrary
         private int                             product_id;
         private int                             vendor_id;
         private Guid                            device_class;
-        private Type device_type;
         private IntPtr                          usb_event_handle;
         private HIDDevice                 specified_device;
         private IntPtr                          handle;
@@ -114,14 +113,6 @@ namespace UsbLibrary
             set { this.vendor_id = value; }
         }
 
-       [Description("The type of the USB device you want to use")]
-       [DefaultValue("typeOf(SpecifiedDevice")]
-       [Category("Embedded Details")]
-       public virtual Type DeviceType
-       {
-           get { return this.device_type; }
-           set { this.device_type = value; }
-       }
 
         [Description("The Device Class the USB device belongs to")]
         [DefaultValue("(none)")]
@@ -225,7 +216,7 @@ namespace UsbLibrary
                     history = true;
                 }
 
-                specified_device = HIDDevice.FindDevice(this.VendorId, this.ProductId, DeviceType);	// look for the device on the USB bus
+                specified_device = HIDDevice.FindDevice(VendorId, ProductId, CreateDevice());	// look for the device on the USB bus
                 if (specified_device != null)	// did we find it?
                 {
                     if (OnSpecifiedDeviceArrived != null)
