@@ -286,7 +286,7 @@ namespace UsbLibrary
 		/// <param name="nPid">Product id for device (PID)</param>
 		/// <param name="oType">Type of device class to create</param>
 		/// <returns>A new device class of the given type or null</returns>
-		public static HIDDevice FindDevice(int nVid, int nPid, Type oType)
+		public static HIDDevice FindDevice(int nVid, int nPid, HIDDevice device)
         {
             string strPath = string.Empty;
 			string strSearch = string.Format("vid_{0:x4}&pid_{1:x4}", nVid, nPid); // first, build the path search string
@@ -305,9 +305,8 @@ namespace UsbLibrary
                     string strDevicePath = GetDevicePath(hInfoSet, ref oInterface);	// get the device path (see helper method 'GetDevicePath')
                     if (strDevicePath.IndexOf(strSearch) >= 0)	// do a string search, if we find the VID/PID string then we found our device!
                     {
-                        HIDDevice oNewDevice = (HIDDevice)Activator.CreateInstance(oType);	// create an instance of the class for this device
-                        oNewDevice.Initialise(strDevicePath);	// initialise it with the device path
-                        return oNewDevice;	// and return it
+                        device.Initialise(strDevicePath);	// initialise it with the device path
+                        return device;	// and return it
                     }
                     nIndex++;	// if we get here, we didn't find our device. So move on to the next one.
                 }
