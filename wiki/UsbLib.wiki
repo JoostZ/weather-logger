@@ -11,8 +11,11 @@ In the source for our project I have split the USB interface in two separate lib
   * The `WeatherLoggerLib` contains the WS4000 specific extensions to `UsbLibrary`.
 
 = The implementation =
-== `UsbLibrary` ==
 The following picture shows the classes in `UsbLibrary`
 <wiki:gadget url="http://creately.com/player/gadget/createlyplayer.xml" height="1000" width="1000" border="0" up_did="gnybuyyb1" up_dlogo="false" up_dtitle="Embedding in Google Code" up_bgcolor="#EEEEEE" />
 
-At the heart of the library is the (abstract) class `HIDDevice`. This class implements all of the low-level interfacing to a HID USB device.
+The classes above the line re in `UsbLibrary`, the ones below the line are in `WeatherLoggerLib`.
+== `UsbLibrary` ==
+At the heart of the library are the (abstract) class `HIDDevice` and `UsbHidPort`. These class implement all of the low-level interfacing to a HID USB device.
+=== `UsbHidPort` ===
+This class is in the form of a `Component`. It is part of the Windows (GUI) message loop and will detect addition and removal of HID USB devices.
