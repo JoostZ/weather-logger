@@ -42,11 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultImportReport.cs" />
     <Compile Include="HIDDevice.cs" />
     <Compile Include="Report.cs" />
-    <Compile Include="SpecifiedDevice.cs" />
-    <Compile Include="SpecifiedInputReport.cs" />
-    <Compile Include="SpecifiedOutputReport.cs" />
     <Compile Include="UsbHidPort.cs">
       <SubType>Component</SubType>
     </Compile>

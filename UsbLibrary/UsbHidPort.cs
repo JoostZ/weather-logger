@@ -12,14 +12,15 @@ namespace UsbLibrary
     /// This class provides an usb component. This can be placed ont to your form.
     /// </summary>
     [ToolboxBitmap(typeof(UsbHidPort), "UsbHidBmp.bmp")]
-    public partial class UsbHidPort : Component
+    public abstract partial  class UsbHidPort : Component
     {
         //private memebers
         private int                             product_id;
         private int                             vendor_id;
         private Guid                            device_class;
+        private Type device_type;
         private IntPtr                          usb_event_handle;
-        private SpecifiedDevice                 specified_device;
+        private HIDDevice                 specified_device;
         private IntPtr                          handle;
         //events
         /// <summary>
@@ -62,7 +63,7 @@ namespace UsbLibrary
         [Description("The event that occurs when data is recieved from the embedded system")]
         [Category("Embedded Event")]
         [DisplayName("OnDataRecieved")]
-        public event DataRecievedEventHandler   OnDataRecieved;
+        public event DataReceivedEventHandler   OnDataRecieved;
 
         /// <summary>
         /// This event will be triggered when data is send to the device. 
@@ -99,7 +100,7 @@ namespace UsbLibrary
         [Description("The product id from the USB device you want to use")]
         [DefaultValue("(none)")]
         [Category("Embedded Details")]
-        public int ProductId{
+        public virtual int ProductId{
             get { return this.product_id; }
             set { this.product_id = value; }
         }
@@ -107,11 +108,20 @@ namespace UsbLibrary
        [Description("The vendor id from the USB device you want to use")]
        [DefaultValue("(none)")]
        [Category("Embedded Details")]
-        public int VendorId
+        public virtual int VendorId
         {
             get { return this.vendor_id; }
             set { this.vendor_id = value; }
         }
+
+       [Description("The type of the USB device you want to use")]
+       [DefaultValue("typeOf(SpecifiedDevice")]
+       [Category("Embedded Details")]
+       public virtual Type DeviceType
+       {
+           get { return this.device_type; }
+           set { this.device_type = value; }
+       }
 
         [Description("The Device Class the USB device belongs to")]
         [DefaultValue("(none)")]
@@ -124,7 +134,7 @@ namespace UsbLibrary
         [Description("The Device witch applies to the specifications you set")]
         [DefaultValue("(none)")]
         [Category("Embedded Details")]
-        public SpecifiedDevice SpecifiedDevice
+        public HIDDevice SpecifiedDevice
         {
             get { return this.specified_device; }
         }
@@ -215,14 +225,14 @@ namespace UsbLibrary
                     history = true;
                 }
 
-                specified_device = SpecifiedDevice.FindSpecifiedDevice(this.vendor_id, this.product_id);	// look for the device on the USB bus
+                specified_device = HIDDevice.FindDevice(this.VendorId, this.ProductId, DeviceType);	// look for the device on the USB bus
                 if (specified_device != null)	// did we find it?
                 {
                     if (OnSpecifiedDeviceArrived != null)
                     {
                         this.OnSpecifiedDeviceArrived(this, new EventArgs());
-                        specified_device.DataRecieved += new DataRecievedEventHandler(OnDataRecieved);
-                        specified_device.DataSend += new DataSendEventHandler(OnDataSend);
+                        specified_device.DataReceived += new DataReceivedEventHandler(OnDataRecieved);
+                        specified_device.DataSent += new DataSendEventHandler(OnDataSend);
                     }
                 }
                 else
@@ -239,20 +249,22 @@ namespace UsbLibrary
             }
         }
 
-        private void DataRecieved(object sender, DataRecievedEventArgs args)
+        private void DataRecieved(object sender, DataReceivedEventArgs args)
         {
             if(this.OnDataRecieved != null){
                 this.OnDataRecieved(sender, args);
             }
         }
 
-        private void DataSend(object sender, DataSendEventArgs args)
+        private void DataSend(object sender, DataSentEventArgs args)
         {
             if (this.OnDataSend != null)
             {
                 this.OnDataSend(sender, args);
             }
         }
+
+        protected abstract HIDDevice CreateDevice();
     
     }
 }

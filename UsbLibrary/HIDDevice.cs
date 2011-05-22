@@ -6,6 +6,29 @@ using Microsoft.Win32.SafeHandles;
 
 namespace UsbLibrary
 {
+    public class DataReceivedEventArgs : EventArgs
+    {
+        public readonly InputReport data;
+
+        public DataReceivedEventArgs(InputReport data)
+        {
+            this.data = data;
+        }
+    }
+
+    public class DataSentEventArgs : EventArgs
+    {
+        public readonly OutputReport data;
+
+        public DataSentEventArgs(OutputReport data)
+        {
+            this.data = data;
+        }
+    }
+
+    public delegate void DataReceivedEventHandler(object sender, DataReceivedEventArgs args);
+    public delegate void DataSendEventHandler(object sender, DataSentEventArgs args);
+
 	#region Custom exception
 	/// <summary>
 	/// Generic HID device exception
@@ -106,7 +129,7 @@ namespace UsbLibrary
 
                         BeginAsyncRead();	// kick off the first asynchronous read                              
                     }
-                    catch (Exception ex)
+                    catch (Exception )
                     {
                         throw HIDDeviceException.GenerateWithWinError("Failed to get the detailed data from the hid.");
                     }
@@ -158,7 +181,7 @@ namespace UsbLibrary
                     BeginAsyncRead();	// when all that is done, kick off another read for the next report
                 }                
             }
-            catch(IOException ex)	// if we got an IO exception, the device was removed
+            catch(IOException)	// if we got an IO exception, the device was removed
             {
                 HandleDeviceRemoved();
                 if (OnDeviceRemoved != null)
@@ -166,6 +189,31 @@ namespace UsbLibrary
                     OnDeviceRemoved(this, new EventArgs());
                 }
                 Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Send an OutputReport
+        /// </summary>
+        /// <param name="oRep">The OutputReport to send</param>
+        /// <remarks>Will raise the DataSent event</remarks>
+        public void SendReport(OutputReport oRep)
+        {
+            try
+            {
+                Write(oRep); // write the output report
+                if (DataSent != null)
+                {
+                    DataSent(this, new DataSentEventArgs(oRep));
+                }
+            }
+            catch (HIDDeviceException)
+            {
+                // Device may have been removed!
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
 		/// <summary>
@@ -178,7 +226,7 @@ namespace UsbLibrary
             {
                 m_oFile.Write(oOutRep.Buffer, 0, oOutRep.BufferLength);
             }
-            catch (IOException ex)
+            catch (IOException)
             {
                 //Console.WriteLine(ex.ToString());
                 // The device was removed!
@@ -194,7 +242,11 @@ namespace UsbLibrary
 		/// </summary>
 		/// <param name="oInRep">The input report that was received</param>
 		protected virtual void HandleDataReceived(InputReport oInRep)
-		{
+        {   // Fire the event handler if assigned
+            if (DataReceived != null)
+            {
+                DataReceived(this, new DataReceivedEventArgs(oInRep));
+            }
 		}
 		/// <summary>
 		/// Virtual handler for any action to be taken when a device is removed. Override to use.
@@ -279,6 +331,8 @@ namespace UsbLibrary
 		/// Event handler called when device has been removed
 		/// </summary>
 		public event EventHandler OnDeviceRemoved;
+        public event DataReceivedEventHandler DataReceived;
+        public event DataSendEventHandler DataSent;
 		/// <summary>
 		/// Accessor for output report length
 		/// </summary>

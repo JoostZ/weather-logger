@@ -51,20 +51,31 @@ namespace UsbLibrary
 				return m_nLength;
 			}
 		}
+
+        //public abstract byte[] Data { get; }
 	}
 	/// <summary>
 	/// Defines a base class for output reports. To use output reports, just put the bytes into the raw buffer.
 	/// </summary>
 	public abstract class OutputReport : Report
 	{
+        HIDDevice device;
 		/// <summary>
 		/// Construction. Setup the buffer with the correct output report length dictated by the device
 		/// </summary>
 		/// <param name="oDev">Creating device</param>
 		public OutputReport(HIDDevice oDev) : base(oDev)
 		{
+            device = oDev;
 			SetBuffer(new byte[oDev.OutputReportLength]);
 		}
+
+        protected abstract void SetData();
+
+        public void Send()
+        {
+            device.SendReport(this);
+        }
 	}
 	/// <summary>
 	/// Defines a base class for input reports. To use input reports, use the SetData method and override the 

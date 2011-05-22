@@ -33,6 +33,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,14 +42,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RequestBuffer.cs" />
     <Compile Include="WS4000Device.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WS4000HidPort.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WS4000HidPort.Designer.cs">
+      <DependentUpon>WS4000HidPort.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WS4000InputReport.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UsbLibrary\UsbLibrary.csproj">
       <Project>{71E42A6D-C432-4C03-BF4F-ABFD2A3173E0}</Project>
       <Name>UsbLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WS4000HidPort.resx">
+      <DependentUpon>WS4000HidPort.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
