@@ -188,15 +188,16 @@ namespace UsbLibrary
                         if (OnDeviceArrived != null)
                         {
                             OnDeviceArrived(this, new EventArgs());
-                            CheckDevicePresent();
                         }
+                            CheckDevicePresent();
                         break;
                     case Win32Usb.DEVICE_REMOVECOMPLETE:	// removed
                         if (OnDeviceRemoved != null)
                         {
                             OnDeviceRemoved(this, new EventArgs());
-                            CheckDevicePresent();
                         }
+                            CheckDevicePresent();
+                        
                         break;
                 }
             }

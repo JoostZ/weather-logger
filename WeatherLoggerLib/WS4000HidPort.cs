@@ -15,14 +15,14 @@ namespace WeatherLoggerLib
     {
         public override int ProductId
         {
-            get { return 0x1401; }
+            get { return 0x8021; }
         }
 
         public override int VendorId
         {
             get
             {
-                return 0x8201;
+                return 0x1941;
             }
         }
 
