@@ -12,7 +12,7 @@ In the source for our project I have split the USB interface in two separate lib
 
 = The implementation =
 The following picture shows the classes in `UsbLibrary`
-<wiki:gadget url="http://creately.com/player/gadget/createlyplayer.xml" height="1000" width="1000" border="0" up_did="gnybuyyb1" up_dlogo="false" up_dtitle="Embedding in Google Code" up_bgcolor="#EEEEEE" />
+<wiki:gadget url="http://creately.com/player/gadget/createlyplayer.xml" height="1000" width="1000" border="0" up_did="gnybuyyb1" up_dlogo="true" up_dtitle="Embedding in Google Code" up_bgcolor="#EEEEEE" />
 
 The classes above the line re in `UsbLibrary`, the ones below the line are in `WeatherLoggerLib`.
 == `UsbLibrary` ==
