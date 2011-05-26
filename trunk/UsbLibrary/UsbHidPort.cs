@@ -125,7 +125,7 @@ namespace UsbLibrary
         [Description("The Device witch applies to the specifications you set")]
         [DefaultValue("(none)")]
         [Category("Embedded Details")]
-        public HIDDevice SpecifiedDevice
+        public virtual HIDDevice SpecifiedDevice
         {
             get { return this.specified_device; }
         }
