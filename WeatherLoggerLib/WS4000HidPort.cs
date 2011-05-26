@@ -35,5 +35,13 @@ namespace WeatherLoggerLib
         {
             return new WS4000Device();
         }
+
+        public new WS4000Device SpecifiedDevice
+        {
+            get
+            {
+                return (WS4000Device)base.SpecifiedDevice;
+            }
+        }
     }
 }
