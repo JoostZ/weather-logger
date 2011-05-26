@@ -27,7 +27,7 @@ namespace UsbLibrary
     }
 
     public delegate void DataReceivedEventHandler(object sender, DataReceivedEventArgs args);
-    public delegate void DataSendEventHandler(object sender, DataSentEventArgs args);
+    public delegate void DataSentEventHandler(object sender, DataSentEventArgs args);
 
 	#region Custom exception
 	/// <summary>
@@ -207,8 +207,9 @@ namespace UsbLibrary
                     DataSent(this, new DataSentEventArgs(oRep));
                 }
             }
-            catch (HIDDeviceException)
+            catch (HIDDeviceException ex)
             {
+                Console.WriteLine(ex.ToString());
                 // Device may have been removed!
             }
             catch (Exception ex)
@@ -331,7 +332,7 @@ namespace UsbLibrary
 		/// </summary>
 		public event EventHandler OnDeviceRemoved;
         public event DataReceivedEventHandler DataReceived;
-        public event DataSendEventHandler DataSent;
+        public event DataSentEventHandler DataSent;
 		/// <summary>
 		/// Accessor for output report length
 		/// </summary>

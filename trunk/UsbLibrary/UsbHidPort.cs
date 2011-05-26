@@ -59,10 +59,10 @@ namespace UsbLibrary
         /// <summary>
         /// This event will be triggered when data is recieved from the device specified by you.
         /// </summary>
-        [Description("The event that occurs when data is recieved from the embedded system")]
+        [Description("The event that occurs when data is received from the embedded system")]
         [Category("Embedded Event")]
-        [DisplayName("OnDataRecieved")]
-        public event DataReceivedEventHandler   OnDataRecieved;
+        [DisplayName("OnDataReceived")]
+        public event DataReceivedEventHandler   OnDataReceived;
 
         /// <summary>
         /// This event will be triggered when data is send to the device. 
@@ -70,8 +70,8 @@ namespace UsbLibrary
         /// </summary>
         [Description("The event that occurs when data is send from the host to the embedded system")]
         [Category("Embedded Event")]
-        [DisplayName("OnDataSend")]
-        public event EventHandler               OnDataSend;
+        [DisplayName("OnDataSent")]
+        public event DataSentEventHandler       OnDataSent;
 
         public UsbHidPort()
         {
@@ -223,9 +223,9 @@ namespace UsbLibrary
                     if (OnSpecifiedDeviceArrived != null)
                     {
                         this.OnSpecifiedDeviceArrived(this, new EventArgs());
-                        specified_device.DataReceived += new DataReceivedEventHandler(OnDataRecieved);
-                        specified_device.DataSent += new DataSendEventHandler(OnDataSend);
                     }
+                    specified_device.DataReceived += new DataReceivedEventHandler(DataRecieved);
+                    specified_device.DataSent += new DataSentEventHandler(DataSend);
                 }
                 else
                 {
@@ -243,16 +243,16 @@ namespace UsbLibrary
 
         private void DataRecieved(object sender, DataReceivedEventArgs args)
         {
-            if(this.OnDataRecieved != null){
-                this.OnDataRecieved(sender, args);
+            if(this.OnDataReceived != null){
+                this.OnDataReceived(sender, args);
             }
         }
 
         private void DataSend(object sender, DataSentEventArgs args)
         {
-            if (this.OnDataSend != null)
+            if (this.OnDataSent != null)
             {
-                this.OnDataSend(sender, args);
+                this.OnDataSent(sender, args);
             }
         }
 

@@ -74,6 +74,7 @@ namespace UsbLibrary
 
         public void Send()
         {
+            SetData();
             device.SendReport(this);
         }
 	}
