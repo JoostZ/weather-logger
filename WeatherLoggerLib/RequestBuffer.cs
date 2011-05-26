@@ -11,7 +11,7 @@ namespace WeatherLoggerLib
      * @brief
      * USB Output Report to request a buffer from the memory of the station
      */
-    class RequestBuffer : OutputReport
+    public class RequestBuffer : OutputReport
     {
         public int Offset { get; set; }
 
@@ -29,7 +29,7 @@ namespace WeatherLoggerLib
         private const int highPosition = 3;
         private const int stride = 4;
 
-        public RequestBuffer(WS4000Device device)
+        public RequestBuffer(HIDDevice device)
             : base(device)
         {
         }
@@ -49,7 +49,7 @@ namespace WeatherLoggerLib
             byte[] arrBuff = Buffer; //new byte[Buffer.Length];
             for (int i = 1; i < Buffer.Length; i++)
             {
-                Buffer[i] = template[i];
+                Buffer[i] = template[i - 1];
             }
             Buffer[lowPosition] = Buffer[lowPosition + stride] = offsetLow;
             Buffer[highPosition] = Buffer[highPosition + stride] = offsetHigh;

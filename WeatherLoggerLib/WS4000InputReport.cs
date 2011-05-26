@@ -17,7 +17,7 @@ namespace WeatherLoggerLib
 
         public override void ProcessData()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

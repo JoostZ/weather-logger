@@ -9,6 +9,7 @@ namespace WeatherLoggerLib
 {
     public class WS4000Device : HIDDevice
     {
+
         public override InputReport CreateInputReport()
         {
             return new WS4000InputReport(this);
