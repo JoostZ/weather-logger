@@ -25,8 +25,8 @@ namespace WeatherLoggerLib
                               0x00,
                               0x20
                           };
-        private const int lowPosition = 2;
-        private const int highPosition = 3;
+        private const int lowPosition = 3;
+        private const int highPosition = 2;
         private const int stride = 4;
 
         public RequestBuffer(HIDDevice device)

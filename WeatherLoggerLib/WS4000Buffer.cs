@@ -25,7 +25,10 @@ namespace WeatherLoggerLib
         /// </summary>
         public byte[] Buffer { get; set; }
 
-        private int Cursor { get; set; }
+        public int Cursor {
+            get; 
+            private set; 
+        }
 
         public bool Full
         {
