@@ -55,14 +55,14 @@ namespace WeatherLoggerLib
         /// at address offset
         /// </summary>
         /// <param name="offset"></param>
-        public void getMemory(int offset)
+        public void getMemory(int offset, int length = 0x20)
         {
             if (Buffer != null)
             {
                 throw new HIDDeviceException("Reading memory is in progress");
             }
 
-            Buffer = new WS4000Buffer(offset, 0x20);
+            Buffer = new WS4000Buffer(offset, length);
             RequestBuffer request = new RequestBuffer(this);
             request.Offset = offset;
             request.Send();
@@ -78,6 +78,12 @@ namespace WeatherLoggerLib
                     WS4000Buffer buffer = Buffer;
                     Buffer = null;
                     OnBufferReceived(buffer);
+                }
+                else if (Buffer.Cursor % 0x20 == 0)
+                {
+                    RequestBuffer request = new RequestBuffer(this);
+                    request.Offset = Buffer.Cursor;
+                    request.Send();
                 }
             }
         }
