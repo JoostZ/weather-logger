@@ -13,6 +13,8 @@ namespace WeatherLoggerLib
      */
     public class RequestBuffer : OutputReport
     {
+        const int BLOCK_SIZE = 0x20;
+
         public int Offset { get; set; }
 
         private byte[] template = {

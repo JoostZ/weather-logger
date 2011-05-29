@@ -29,7 +29,7 @@ namespace WeatherLoggerLib
 
         public delegate void BufferReceivedEventHandler(object sender, BufferReceivedEventArgs args);
 
-        public event BufferReceivedEventHandler BufferReceived;
+        public event EventHandler<BufferReceivedEventArgs> BufferReceived;
 
         private void OnBufferReceived(WS4000Buffer theBuffer)
         {

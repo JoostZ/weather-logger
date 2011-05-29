@@ -42,7 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BufferPos.cs" />
     <Compile Include="RequestBuffer.cs" />
+    <Compile Include="SnapshotReader.cs" />
+    <Compile Include="WeatherSnapshot.cs" />
     <Compile Include="WS4000Buffer.cs" />
     <Compile Include="WS4000Device.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
