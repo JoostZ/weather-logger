@@ -1,0 +1,14 @@
+#The internal memory structure of the WS4000
+= Introduction =
+
+As described elsewhere we have access to the internal memory of the WS4000 weather station through the USB interface. This page gives a description of the memory layout and what part of the memory we should read to get to the information we want.
+
+The information described here is based on the source code of the [http://code.google.com/p/pywws/ PYWWS project]
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
