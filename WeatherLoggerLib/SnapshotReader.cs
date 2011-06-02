@@ -185,10 +185,10 @@ namespace WeatherLoggerLib
             Count--;
             WeatherSnapshot snapshot = new WeatherSnapshot(buffer, offset);
             SnapshotDate -= new TimeSpan(0, snapshot.Interval, 0);
-            snapshot.Date = SnapshotDate;
+            snapshot.Timestamp = SnapshotDate;
 
 
-            if (Count <= 0 || snapshot.Date < LimitDate)
+            if (Count <= 0 || snapshot.Timestamp < LimitDate)
             {
                 // Finished reading
                 this.BufferReceived -= BufferedSnapshotRead;
