@@ -1,4 +1,4 @@
-# The internal memory structure of the WS4000
+#summary The internal memory structure of the WS4000
 = Introduction =
 
 As described elsewhere we have access to the internal memory of the WS4000 weather station through the USB interface. This page gives a description of the memory layout and what part of the memory we should read to get to the information we want.
