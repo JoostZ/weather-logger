@@ -142,6 +142,7 @@ namespace WeatherLoggerLib
         /// <summary>
         /// Create a new WeatherSnapshot object.
         /// </summary>
+        /// <param name="timestamp">Initial value of the Timestamp property.</param>
         /// <param name="interval">Initial value of the Interval property.</param>
         /// <param name="indoorHumidity">Initial value of the IndoorHumidity property.</param>
         /// <param name="indoorTemperature">Initial value of the IndoorTemperature property.</param>
@@ -152,10 +153,10 @@ namespace WeatherLoggerLib
         /// <param name="windGust">Initial value of the WindGust property.</param>
         /// <param name="rain">Initial value of the Rain property.</param>
         /// <param name="status">Initial value of the Status property.</param>
-        /// <param name="snapshotId">Initial value of the SnapshotId property.</param>
-        public static WeatherSnapshot CreateWeatherSnapshot(global::System.Byte interval, global::System.Byte indoorHumidity, global::System.Double indoorTemperature, global::System.Byte outdoorHumidity, global::System.Double outdoorTemperature, global::System.Double pressure, global::System.Double windAverage, global::System.Double windGust, global::System.Double rain, global::System.Byte status, global::System.Int32 snapshotId)
+        public static WeatherSnapshot CreateWeatherSnapshot(global::System.DateTime timestamp, global::System.Byte interval, global::System.Byte indoorHumidity, global::System.Double indoorTemperature, global::System.Byte outdoorHumidity, global::System.Double outdoorTemperature, global::System.Double pressure, global::System.Double windAverage, global::System.Double windGust, global::System.Double rain, global::System.Byte status)
         {
             WeatherSnapshot weatherSnapshot = new WeatherSnapshot();
+            weatherSnapshot.Timestamp = timestamp;
             weatherSnapshot.Interval = interval;
             weatherSnapshot.IndoorHumidity = indoorHumidity;
             weatherSnapshot.IndoorTemperature = indoorTemperature;
@@ -166,7 +167,6 @@ namespace WeatherLoggerLib
             weatherSnapshot.WindGust = windGust;
             weatherSnapshot.Rain = rain;
             weatherSnapshot.Status = status;
-            weatherSnapshot.SnapshotId = snapshotId;
             return weatherSnapshot;
         }
 
@@ -176,9 +176,9 @@ namespace WeatherLoggerLib
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> Timestamp
+        public global::System.DateTime Timestamp
         {
             get
             {
@@ -186,15 +186,18 @@ namespace WeatherLoggerLib
             }
             set
             {
-                OnTimestampChanging(value);
-                ReportPropertyChanging("Timestamp");
-                _Timestamp = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Timestamp");
-                OnTimestampChanged();
+                if (_Timestamp != value)
+                {
+                    OnTimestampChanging(value);
+                    ReportPropertyChanging("Timestamp");
+                    _Timestamp = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Timestamp");
+                    OnTimestampChanged();
+                }
             }
         }
-        private Nullable<global::System.DateTime> _Timestamp;
-        partial void OnTimestampChanging(Nullable<global::System.DateTime> value);
+        private global::System.DateTime _Timestamp;
+        partial void OnTimestampChanging(global::System.DateTime value);
         partial void OnTimestampChanged();
     
         /// <summary>
@@ -436,33 +439,6 @@ namespace WeatherLoggerLib
         private global::System.Byte _Status;
         partial void OnStatusChanging(global::System.Byte value);
         partial void OnStatusChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 SnapshotId
-        {
-            get
-            {
-                return _SnapshotId;
-            }
-            set
-            {
-                if (_SnapshotId != value)
-                {
-                    OnSnapshotIdChanging(value);
-                    ReportPropertyChanging("SnapshotId");
-                    _SnapshotId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("SnapshotId");
-                    OnSnapshotIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _SnapshotId;
-        partial void OnSnapshotIdChanging(global::System.Int32 value);
-        partial void OnSnapshotIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

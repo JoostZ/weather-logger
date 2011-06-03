@@ -89,7 +89,7 @@ namespace WindowsFormsApplication1
             reader = new SnapshotReader(device);
             device.BufferReceived += handleBufferReceived;
             //device.getMemory(0, 64);
-            reader.readSnapshots(new DateTime(2011, 5, 29, 0, 0, 0));
+            reader.readSnapshots();
         }
 
         private void handleBufferReceived(object sender, BufferReceivedEventArgs args)
