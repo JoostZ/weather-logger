@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DatabaseModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.3.5" ProviderManifestToken="3.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="DatabaseModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.3.5" ProviderManifestToken="3.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="DatabaseModelStoreContainer">
           <EntitySet Name="WeatherSnapshot" EntityType="DatabaseModel.Store.WeatherSnapshot" store:Type="Tables" />
           <EntitySet Name="WindDirection" EntityType="DatabaseModel.Store.WindDirection" store:Type="Tables" />
@@ -15,9 +15,9 @@
         </EntityContainer>
         <EntityType Name="WeatherSnapshot">
           <Key>
-            <PropertyRef Name="SnapshotId" />
+            <PropertyRef Name="Timestamp" />
           </Key>
-          <Property Name="Timestamp" Type="datetime" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
           <Property Name="Interval" Type="tinyint" Nullable="false" />
           <Property Name="IndoorHumidity" Type="tinyint" Nullable="false" />
           <Property Name="IndoorTemperature" Type="float" Nullable="false" />
@@ -28,7 +28,6 @@
           <Property Name="WindGust" Type="float" Nullable="false" />
           <Property Name="Rain" Type="float" Nullable="false" />
           <Property Name="Status" Type="tinyint" Nullable="false" />
-          <Property Name="SnapshotId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="WindDirectionId" Type="tinyint" />
         </EntityType>
         <EntityType Name="WindDirection">
@@ -51,8 +50,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -66,9 +64,9 @@
         </EntityContainer>
         <EntityType Name="WeatherSnapshot">
           <Key>
-            <PropertyRef Name="SnapshotId" />
+            <PropertyRef Name="Timestamp" />
           </Key>
-          <Property Name="Timestamp" Type="DateTime" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
           <Property Name="Interval" Type="Byte" Nullable="false" />
           <Property Name="IndoorHumidity" Type="Byte" Nullable="false" />
           <Property Name="IndoorTemperature" Type="Double" Nullable="false" />
@@ -79,7 +77,6 @@
           <Property Name="WindGust" Type="Double" Nullable="false" />
           <Property Name="Rain" Type="Double" Nullable="false" />
           <Property Name="Status" Type="Byte" Nullable="false" />
-          <Property Name="SnapshotId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="WindDirectionId" Type="Byte" />
           <NavigationProperty Name="WindDirection" Relationship="DatabaseModel.FK_WindDirection_WeatherSnapshot" FromRole="WeatherSnapshot" ToRole="WindDirection" />
         </EntityType>
@@ -122,7 +119,6 @@
             <ScalarProperty Name="WindGust" ColumnName="WindGust" />
             <ScalarProperty Name="Rain" ColumnName="Rain" />
             <ScalarProperty Name="Status" ColumnName="Status" />
-            <ScalarProperty Name="SnapshotId" ColumnName="SnapshotId" />
             <ScalarProperty Name="WindDirectionId" ColumnName="WindDirectionId" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="WindDirections"><EntityTypeMapping TypeName="DatabaseModel.WindDirection"><MappingFragment StoreEntitySet="WindDirection">
@@ -144,14 +140,14 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Weather">
-        <EntityTypeShape EntityType="DatabaseModel.WeatherSnapshot" Width="1.5" PointX="3" PointY="1" Height="3.7109993489583331" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.WeatherSnapshot" Width="1.5" PointX="3" PointY="1" Height="3.5186979166666656" IsExpanded="true" />
         <EntityTypeShape EntityType="DatabaseModel.WindDirection" Width="1.5" PointX="0.75" PointY="2" Height="1.7879850260416674" IsExpanded="true" />
         <AssociationConnector Association="DatabaseModel.FK_WindDirection_WeatherSnapshot" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="2.8939925130208337" />

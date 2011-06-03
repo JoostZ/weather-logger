@@ -51,7 +51,7 @@
             this.lbRead.FormattingEnabled = true;
             this.lbRead.Location = new System.Drawing.Point(334, 38);
             this.lbRead.Name = "lbRead";
-            this.lbRead.Size = new System.Drawing.Size(259, 212);
+            this.lbRead.Size = new System.Drawing.Size(425, 212);
             this.lbRead.TabIndex = 1;
             // 
             // lbWrite
@@ -85,7 +85,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(595, 262);
+            this.ClientSize = new System.Drawing.Size(787, 262);
             this.Controls.Add(this.btnWrite);
             this.Controls.Add(this.lbWrite);
             this.Controls.Add(this.lbRead);

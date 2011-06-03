@@ -35,6 +35,8 @@ namespace WeatherLoggerLib
         public SnapshotReader(WS4000Device device)
         {
             this.device = device;
+            this.AllSnapshotsRead += Persist;
+            Context = new DatabaseEntities1();
         }
 
         private int  Count { get; set; } 
@@ -50,6 +52,24 @@ namespace WeatherLoggerLib
         }
 
         public DateTime LimitDate { get; private set; }
+
+        private DatabaseEntities1 Context { get; set; }
+
+        public void readSnapshots()
+        {
+            DateTime last;
+            //using (var context = new DatabaseEntities1())
+            {
+                int count = Context.WeatherSnapshots.Count();
+                if (count == 0) {
+
+                    last = new DateTime(2000, 1, 1, 0, 0, 0);
+                } else {
+                last = Context.WeatherSnapshots.Max(tr => tr.Timestamp);
+                }
+            }
+            readSnapshots(last);
+        }
 
         /// <summary>
         /// Read snapshots after a certain date-time
@@ -157,8 +177,6 @@ namespace WeatherLoggerLib
                 offset = 0x10;
             }
 
-            WeatherSnapshot snapshot = new WeatherSnapshot(buffer, offset);
-
             int delay = buffer[offset];
             SnapshotDate -= new TimeSpan(0, delay, 0);
             if (SnapshotDate < LimitDate)
@@ -188,7 +206,7 @@ namespace WeatherLoggerLib
             snapshot.Timestamp = SnapshotDate;
 
 
-            if (Count <= 0 || snapshot.Timestamp < LimitDate)
+            if (Count <= 0 || snapshot.Timestamp <= LimitDate)
             {
                 // Finished reading
                 this.BufferReceived -= BufferedSnapshotRead;
@@ -215,5 +233,36 @@ namespace WeatherLoggerLib
             }
         }
 
+        private void Persist(object sender, AllSnapshotsReadArg args)
+        {
+            //using (var context = new DatabaseEntities1())
+            {
+                try
+                {
+                    foreach (WeatherSnapshot snapshot in args.Data)
+                    {
+                        Context.AddToWeatherSnapshots(snapshot);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    throw;
+                }
+                finally
+                {
+                    try
+                    {
+                        Context.SaveChanges();
+                    }
+                    catch ( Exception e)
+                    {
+                        
+                        throw;
+                    }
+                }
+            }
+        }
     }
+
 }
