@@ -31,12 +31,13 @@ namespace WeatherLoggerLib
         private WS4000Device device;
 
         List<WeatherSnapshot> newSnapshots = new List<WeatherSnapshot>();
+        public DbAccess db { get; set; }
 
         public SnapshotReader(WS4000Device device)
         {
             this.device = device;
+            this.db = new DbAccess();
             this.AllSnapshotsRead += Persist;
-            Context = new DatabaseEntities1();
         }
 
         private int  Count { get; set; } 
@@ -58,16 +59,8 @@ namespace WeatherLoggerLib
         public void readSnapshots()
         {
             DateTime last;
-            //using (var context = new DatabaseEntities1())
-            {
-                int count = Context.WeatherSnapshots.Count();
-                if (count == 0) {
 
-                    last = new DateTime(2000, 1, 1, 0, 0, 0);
-                } else {
-                last = Context.WeatherSnapshots.Max(tr => tr.Timestamp);
-                }
-            }
+            last = db.LastDate;
             readSnapshots(last);
         }
 
@@ -235,33 +228,7 @@ namespace WeatherLoggerLib
 
         private void Persist(object sender, AllSnapshotsReadArg args)
         {
-            //using (var context = new DatabaseEntities1())
-            {
-                try
-                {
-                    foreach (WeatherSnapshot snapshot in args.Data)
-                    {
-                        Context.AddToWeatherSnapshots(snapshot);
-                    }
-                }
-                catch (Exception e)
-                {
-
-                    throw;
-                }
-                finally
-                {
-                    try
-                    {
-                        Context.SaveChanges();
-                    }
-                    catch ( Exception e)
-                    {
-                        
-                        throw;
-                    }
-                }
-            }
+            db.Add(args.Data);
         }
     }
 
