@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsbLibrary", "UsbLibrary\Us
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUsb", "WindowsFormsApplication1\TestUsb.csproj", "{D96DEAAD-762A-4863-8E6D-422383A24B80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherLogger", "WeatherLogger\WeatherLogger.csproj", "{3956F7F6-5203-4539-A514-4B4F6FA4834D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,16 @@ Global
 		{D96DEAAD-762A-4863-8E6D-422383A24B80}.Release|Mixed Platforms.Build.0 = Release|x86
 		{D96DEAAD-762A-4863-8E6D-422383A24B80}.Release|x86.ActiveCfg = Release|x86
 		{D96DEAAD-762A-4863-8E6D-422383A24B80}.Release|x86.Build.0 = Release|x86
+		{3956F7F6-5203-4539-A514-4B4F6FA4834D}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{3956F7F6-5203-4539-A514-4B4F6FA4834D}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{3956F7F6-5203-4539-A514-4B4F6FA4834D}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{3956F7F6-5203-4539-A514-4B4F6FA4834D}.Debug|x86.ActiveCfg = Debug|x86
+		{3956F7F6-5203-4539-A514-4B4F6FA4834D}.Debug|x86.Build.0 = Debug|x86
+		{3956F7F6-5203-4539-A514-4B4F6FA4834D}.Release|Any CPU.ActiveCfg = Release|x86
+		{3956F7F6-5203-4539-A514-4B4F6FA4834D}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{3956F7F6-5203-4539-A514-4B4F6FA4834D}.Release|Mixed Platforms.Build.0 = Release|x86
+		{3956F7F6-5203-4539-A514-4B4F6FA4834D}.Release|x86.ActiveCfg = Release|x86
+		{3956F7F6-5203-4539-A514-4B4F6FA4834D}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
