@@ -25,6 +25,7 @@ namespace WeatherLogger
     public partial class MainWindow : Window
     {
         WS4000HidPort port;
+        DbAccess _dbAccess;
 
         public MainWindow()
         {
@@ -38,6 +39,14 @@ namespace WeatherLogger
             HwndSource.FromHwnd(helper.Handle).AddHook(HwndSourceHookHandler);
             port = new WS4000HidPort();
             port.RegisterHandle(helper.Handle);
+
+            _dbAccess = new DbAccess();
+
+            stackPanel1.DataContext = _dbAccess;
+
+            // Pre-load the two DatePickers
+            dateFrom.SelectedDate = _dbAccess.FirstDate;
+            dateTo.SelectedDate = _dbAccess.LastDate;
         }
 
         private IntPtr HwndSourceHookHandler(IntPtr hwnd, int msg, IntPtr wParam,
