@@ -1,23 +1,29 @@
 ﻿<Window x:Class="WeatherLogger.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="288" Width="948" Loaded="Window_Loaded" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="clr-namespace:WeatherLoggerLib;assembly=WeatherLoggerLib">
+        Title="MainWindow" Height="288" Width="948" Loaded="Window_Loaded" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="clr-namespace:WeatherLoggerLib;assembly=WeatherLoggerLib" xmlns:my1="clr-namespace:WeatherLogger">
     <Window.Resources>
-        
+        <CollectionViewSource x:Key="dbAccessViewSource" d:DesignSource="{d:DesignInstance my:DbAccess, CreateList=True}" />
+        <CollectionViewSource x:Key="dbAccessWeatherSnapshotListViewSource" Source="{Binding Path=WeatherSnapshotList, Source={StaticResource dbAccessViewSource}}" />
+        <CollectionViewSource x:Key="timeOffsetsViewSource" d:DesignSource="{d:DesignInstance my1:TimeOffsets, CreateList=True}" />
     </Window.Resources>
-    <Grid>
+    <Grid DataContext="{StaticResource dbAccessWeatherSnapshotListViewSource}">
         <StackPanel Height="Auto" HorizontalAlignment="Center" Name="stackPanel1" VerticalAlignment="Top" Orientation="Horizontal">
-            <TextBox Height="23" Name="txtMinDB" Width="80" Text="{Binding Path=FirstDate, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, StringFormat=\{0:d\}}" IsReadOnly="True" />
+            <TextBox Height="23" Name="txtMinDB" Width="80" Text="{Binding Path=FirstDate,
+                Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, StringFormat=\{0:d\}}" IsReadOnly="True" />
             <Button Content="-&gt;" Height="23" Name="btnFromMin" Width="Auto" />
-            <DatePicker Height="25" Name="dateFrom" Width="115" SelectedDateFormat="Short" />
-            <Button Content="&lt;-" Height="23" Name="btnChangeFrom" Width="Auto" />
-            <ComboBox Height="23" Name="cmbFromInterval" Width="120" />
+            <DatePicker Height="25" Name="dateFrom" Width="115" SelectedDateFormat="Short" DisplayDateStart="{Binding Path=FirstDate}"
+                        DisplayDateEnd="{Binding Path=SelectedDate, ElementName=dateTo}"/>
+            <Button Content="&lt;-" Height="23" Name="btnChangeFrom" Width="Auto" Click="btnChangeFrom_Click" />
+            <ComboBox Height="23" Name="cmbFromInterval" Width="60"/>
             <Button Content="V" Height="23" Name="btnLoad" Width="Auto" />
-            <ComboBox Height="23" Name="cmbToInterval" Width="120" ItemsSource="{Binding}" />
-            <Button Content="-&gt;" Height="23" Name="btnChangeTo" Width="Auto" />
-            <DatePicker Height="25" Name="dateTo" Width="115" />
-            <Button Content="&lt;-" Height="23" Name="btnToMax" Width="Auto" />
-            <TextBox Height="23" Name="txtMaxDB" Width="80" IsReadOnly="True" Text="{Binding Path=LastDate, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, StringFormat=\{0:d\}}" />
+            <ComboBox Height="23" Name="cmbToInterval" Width="60">
+            </ComboBox>
+            <Button Content="-&gt;" Height="23" Name="btnChangeTo" Width="Auto" Click="btnChangeTo_Click" />
+            <DatePicker Height="25" Name="dateTo" Width="115" DisplayDateStart="{Binding Path=SelectedDate, ElementName=dateFrom}"
+                        DisplayDateEnd="{Binding Path=LastDate}"/>
+            <Button Content="&lt;-" Height="23" Name="btnToMax" Width="Auto" Click="btnToMax_Click" />
+            <TextBox Height="23" Name="txtMaxDB" Width="80" IsReadOnly="True" Text="{Binding Path=LastDate, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, StringFormat=\{0:d\}}" DataContext="{Binding StringFormat=\{0:d\}, Mode=OneWay}" />
         </StackPanel>
     </Grid>
 </Window>
