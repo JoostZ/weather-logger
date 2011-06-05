@@ -3,20 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="288" Width="948" Loaded="Window_Loaded" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="clr-namespace:WeatherLoggerLib;assembly=WeatherLoggerLib">
     <Window.Resources>
+        
     </Window.Resources>
     <Grid>
         <StackPanel Height="Auto" HorizontalAlignment="Center" Name="stackPanel1" VerticalAlignment="Top" Orientation="Horizontal">
             <TextBox Height="23" Name="txtMinDB" Width="80" Text="{Binding Path=FirstDate, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, StringFormat=\{0:d\}}" IsReadOnly="True" />
             <Button Content="-&gt;" Height="23" Name="btnFromMin" Width="Auto" />
             <DatePicker Height="25" Name="dateFrom" Width="115" SelectedDateFormat="Short" />
-            <Button Content="&lt;-" Height="23" Name="button1" Width="Auto" />
-            <ComboBox Height="23" Name="comboBox1" Width="120" />
+            <Button Content="&lt;-" Height="23" Name="btnChangeFrom" Width="Auto" />
+            <ComboBox Height="23" Name="cmbFromInterval" Width="120" />
             <Button Content="V" Height="23" Name="btnLoad" Width="Auto" />
-            <ComboBox Height="23" Name="comboBox2" Width="120" />
-            <Button Content="-&gt;" Height="23" Name="button2" Width="Auto" />
+            <ComboBox Height="23" Name="cmbToInterval" Width="120" ItemsSource="{Binding}" />
+            <Button Content="-&gt;" Height="23" Name="btnChangeTo" Width="Auto" />
             <DatePicker Height="25" Name="dateTo" Width="115" />
             <Button Content="&lt;-" Height="23" Name="btnToMax" Width="Auto" />
-            <ComboBox Height="23" Name="comboBox3" Width="120" />
             <TextBox Height="23" Name="txtMaxDB" Width="80" IsReadOnly="True" Text="{Binding Path=LastDate, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, StringFormat=\{0:d\}}" />
         </StackPanel>
     </Grid>
