@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TimeOffset.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -96,6 +97,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="TimeOffsets.datasource" />
+    <None Include="WeatherLoggerLib.DbAccess.datasource" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UsbLibrary\UsbLibrary.csproj">

@@ -26,6 +26,7 @@ namespace WeatherLogger
     {
         WS4000HidPort port;
         DbAccess _dbAccess;
+        private TimeOffsets _timeOffsets;
 
         public MainWindow()
         {
@@ -41,12 +42,29 @@ namespace WeatherLogger
             port.RegisterHandle(helper.Handle);
 
             _dbAccess = new DbAccess();
+            _timeOffsets = new TimeOffsets();
 
             stackPanel1.DataContext = _dbAccess;
+            //cmbToInterval.DataContext = _timeOffsets;
+
+            cmbToInterval.Items.Clear();
+            foreach (TimeOffset offset in _timeOffsets.list)
+            {
+                cmbToInterval.Items.Add(offset);
+                cmbFromInterval.Items.Add(offset);
+            }
+            cmbToInterval.SelectedIndex = 0;
+            cmbFromInterval.SelectedIndex = 0;
 
             // Pre-load the two DatePickers
             dateFrom.SelectedDate = _dbAccess.FirstDate;
             dateTo.SelectedDate = _dbAccess.LastDate;
+
+
+            System.Windows.Data.CollectionViewSource dbAccessViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("dbAccessViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // dbAccessViewSource.Source = [generic data source]
+           
         }
 
         private IntPtr HwndSourceHookHandler(IntPtr hwnd, int msg, IntPtr wParam,
@@ -61,6 +79,32 @@ namespace WeatherLogger
             port.ParseMessages(ref m);
 
             return IntPtr.Zero;  
+        }
+
+        private void btnToMax_Click(object sender, RoutedEventArgs e)
+        {
+            dateTo.SelectedDate = _dbAccess.LastDate;
+        }
+
+        private void btnChangeTo_Click(object sender, RoutedEventArgs e)
+        {
+            TimeSpan change = ((TimeOffset)(cmbToInterval.SelectedItem)).Interval;
+            dateTo.SelectedDate = dateFrom.SelectedDate + change;
+            if (dateTo.SelectedDate > _dbAccess.LastDate)
+            {
+                dateTo.SelectedDate = _dbAccess.LastDate;
+            }
+
+        }
+
+        private void btnChangeFrom_Click(object sender, RoutedEventArgs e)
+        {
+            TimeSpan change = ((TimeOffset)(cmbFromInterval.SelectedItem)).Interval;
+            dateFrom.SelectedDate = dateTo.SelectedDate - change;
+            if (dateFrom.SelectedDate < _dbAccess.FirstDate)
+            {
+                dateFrom.SelectedDate = _dbAccess.FirstDate;
+            }
         }
     }
 }
