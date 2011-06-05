@@ -26,6 +26,8 @@ namespace WeatherLogger
     {
         WS4000HidPort port;
         DbAccess _dbAccess;
+        List<WeatherSnapshot> _weatherSnapshots;
+
         private TimeOffsets _timeOffsets;
 
         public MainWindow()
@@ -43,6 +45,8 @@ namespace WeatherLogger
 
             _dbAccess = new DbAccess();
             _timeOffsets = new TimeOffsets();
+            _weatherSnapshots = _dbAccess.Load(_dbAccess.FirstDate, _dbAccess.LastDate);
+
 
             stackPanel1.DataContext = _dbAccess;
             //cmbToInterval.DataContext = _timeOffsets;
@@ -64,7 +68,10 @@ namespace WeatherLogger
             System.Windows.Data.CollectionViewSource dbAccessViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("dbAccessViewSource")));
             // Load data by setting the CollectionViewSource.Source property:
             // dbAccessViewSource.Source = [generic data source]
-           
+
+            System.Windows.Data.CollectionViewSource weatherSnapshotViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("weatherSnapshotViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            weatherSnapshotViewSource.Source = _weatherSnapshots;
         }
 
         private IntPtr HwndSourceHookHandler(IntPtr hwnd, int msg, IntPtr wParam,

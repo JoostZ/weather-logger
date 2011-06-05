@@ -93,5 +93,11 @@ namespace WeatherLoggerLib
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public List<WeatherSnapshot> Load(DateTime fromDate, DateTime toDate)
+        {
+            var result = from c in Context.WeatherSnapshots where c.Timestamp >= fromDate && c.Timestamp <= toDate select c;
+            return result.ToList();
+        }
     }
 }
