@@ -98,8 +98,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="TimeOffsets.datasource" />
-    <None Include="WeatherLoggerLib.WeatherSnapshot.datasource" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UsbLibrary\UsbLibrary.csproj">

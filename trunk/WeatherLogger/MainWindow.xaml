@@ -17,7 +17,7 @@
                         DisplayDateEnd="{Binding Path=SelectedDate, ElementName=dateTo}"/>
             <Button Content="&lt;-" Height="23" Name="btnChangeFrom" Width="Auto" Click="btnChangeFrom_Click" />
             <ComboBox Height="23" Name="cmbFromInterval" Width="60"/>
-            <Button Content="V" Height="23" Name="btnLoad" Width="Auto" />
+            <Button Content="V" Height="23" Name="btnLoad" Width="Auto" Click="btnLoad_Click" />
             <ComboBox Height="23" Name="cmbToInterval" Width="60">
             </ComboBox>
             <Button Content="-&gt;" Height="23" Name="btnChangeTo" Width="Auto" Click="btnChangeTo_Click" />
