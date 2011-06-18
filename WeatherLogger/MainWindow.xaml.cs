@@ -24,6 +24,7 @@ namespace WeatherLogger
     /// </summary>
     public partial class MainWindow : Window
     {
+        System.Windows.Data.CollectionViewSource weatherSnapshotViewSource;
         WS4000HidPort port;
         DbAccess _dbAccess;
         List<WeatherSnapshot> _weatherSnapshots;
@@ -69,7 +70,7 @@ namespace WeatherLogger
             // Load data by setting the CollectionViewSource.Source property:
             // dbAccessViewSource.Source = [generic data source]
 
-            System.Windows.Data.CollectionViewSource weatherSnapshotViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("weatherSnapshotViewSource")));
+            weatherSnapshotViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("weatherSnapshotViewSource")));
             // Load data by setting the CollectionViewSource.Source property:
             weatherSnapshotViewSource.Source = _weatherSnapshots;
         }
@@ -112,6 +113,12 @@ namespace WeatherLogger
             {
                 dateFrom.SelectedDate = _dbAccess.FirstDate;
             }
+        }
+
+        private void btnLoad_Click(object sender, RoutedEventArgs e)
+        {
+            _weatherSnapshots = _dbAccess.Load((DateTime)dateFrom.SelectedDate, (DateTime)dateTo.SelectedDate);
+            weatherSnapshotViewSource.Source = _weatherSnapshots;
         }
     }
 }
