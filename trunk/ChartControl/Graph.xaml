@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChartControl"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid  Name="grid1" ShowGridLines="True">
@@ -27,8 +28,12 @@
         </TextBlock>
         <TextBlock Grid.Column="3" Grid.Row="4" Height="Auto" HorizontalAlignment="Center"  Name="txtXAxisTitle" Text="XAxis Title" VerticalAlignment="Top" />
         <Canvas Grid.Column="1" Grid.RowSpan="2" Grid.Row="1"  Name="yAxisLabels"  />
-        <Canvas Grid.Column="2"  Grid.Row="1"  Name="yAxisTicks"  />
-        <Canvas Grid.Column="3" Grid.Row="2" Name="xAxisTicks"  />
+        <local:Axis Grid.Column="2" Grid.Row="1" x:Name="yAxisTicks">
+            <local:Axis.LayoutTransform>
+                <RotateTransform Angle="90"/>
+            </local:Axis.LayoutTransform>
+        </local:Axis>
+        <local:Axis Grid.Column="3" Grid.Row="2" x:Name="xAxisTicks" />
         <Canvas Grid.Column="2" Grid.Row="3"  Grid.ColumnSpan="2" Name="xAxisLabels"  />
     </Grid>
 </UserControl>
