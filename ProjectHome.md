@@ -1,0 +1,1 @@
+This project will allow the data of a WS-4000 weather station to be persisted on a PC and analyzed off line
